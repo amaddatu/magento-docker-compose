@@ -16,6 +16,20 @@ services:
       database-net:
         ipv4_address: 172.22.238.5
         ipv6_address: 2033:3984:3989::5
+  site1php:
+    image: magentophp:7.1.26-fpm-alpine3.9-m2
+    volumes:
+      - /home/magento/web:/main/www/site1/web
+      - ./php-fpm-alpine.d/magento.www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./php-fpm-alpine.d/php.ini:/usr/local/etc/php/php.ini
+      - ./php-fpm-alpine.d/docker-php-ext-opcache.ini:/usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+    logging:
+      options: 
+        max-size: "1000k"
+        max-file: "3"
+    networks:
+      database-net:
+        ipv4_address: 172.22.238.11
   site1redis:
     image: redis:4.0.11-alpine
     command: redis-server /usr/local/etc/redis/redis.conf
