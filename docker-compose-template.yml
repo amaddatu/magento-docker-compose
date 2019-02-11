@@ -1,0 +1,29 @@
+version: '2.1'
+services: 
+  database:
+    image: mariadb:10.3.9-bionic
+    environment:
+      - MYSQL_ROOT_PASSWORD=<root-password>
+    volumes:
+      - "<database-location>:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+    logging:
+      options:
+        max-size: "2000k"
+        max-file: "10"
+    networks:
+      database-net:
+        ipv4_address: 172.22.238.5
+        ipv6_address: 2033:3984:3989::5
+networks:
+  database-net:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.22.238.0/24
+        gateway: 172.22.238.1
+      - subnet: 2033:3984:3989::/64
+        gateway: 2033:3984:3989::1
