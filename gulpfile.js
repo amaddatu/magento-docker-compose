@@ -30,7 +30,7 @@ var rsyncFunction = function() {
                 incremental: true,
                 recursive: true,
                 clean: true,
-                exclude: ['.git/', 'node_modules/', 'database/']
+                exclude: ['.git/', 'node_modules/', 'database/', 'redis.d/data/']
             }))
             .on('error', function(e){
                 console.log(e);

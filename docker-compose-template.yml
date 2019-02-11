@@ -16,6 +16,19 @@ services:
       database-net:
         ipv4_address: 172.22.238.5
         ipv6_address: 2033:3984:3989::5
+  site1redis:
+    image: redis:4.0.11-alpine
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.d/data:/data
+      - ./redis.d/redis.conf:/usr/local/etc/redis/redis.conf
+    logging:
+      options: 
+        max-size: "1000k"
+        max-file: "3"
+    networks:
+      database-net:
+        ipv4_address: 172.22.238.12
 networks:
   database-net:
     driver: bridge
